@@ -1,5 +1,19 @@
 <template>
-  <div class="hello"></div>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <form method="post" action="#" @submit.prevent="submit" />
+    <input
+      type="email"
+      name="email"
+      id="email"
+      placeholder="Email Address"
+      required
+      v-model="email"
+    />
+    <span class="message success" :class="{ visible: isVisible }"
+      >Thank you!</span
+    >
+  </div>
 </template>
 
 <script>

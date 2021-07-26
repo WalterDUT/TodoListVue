@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png" width="25%">
-    <HelloWorld msg="Hello Vue in CodeSandbox!"/> -->
+    <img alt="Vue logo" src="./assets/logo.png" width="25%" />
+    <HelloWorld msg="Hello Vue in CodeSandbox!" />
   </div>
 </template>
 
@@ -11,7 +11,27 @@ import HelloWorld from "./components/HelloWorld";
 export default {
   name: "App",
   components: {
-    // HelloWorld,
+    HelloWorld,
+  },
+  el: "#signup-form",
+  data: function () {
+    return {
+      isVisible: false,
+      email: "",
+    };
+  },
+  methods: {
+    submit: function () {
+      fetch("https://httpbin.org/post", {
+        method: "POST",
+        body: { email: this.email },
+      })
+        .then((resp) => {
+          this.isVisible = true;
+          this.email = "";
+        })
+        .catch((err) => console.err("error:", err));
+    },
   },
 };
 </script>
