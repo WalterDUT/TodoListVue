@@ -1,17 +1,18 @@
 <template>
-  <todos-input :title="title" @createTodo="createTodoHandler" />
+  <div id="app">
+    <todos-input :title="title" @createTodo="createTodoHandler" />
+    <todos-list :todos="todos" @deleteTodo="deleteTodoHandler" />
+  </div>
 </template>
 
 <script>
-import TodosInput from "./components/TodosInput";
+import TodosInput from "./components/TodosInput.vue";
 import TodosList from "./components/TodosList";
-import TodosActions from "./components/TodosActions";
 export default {
-  name: "",
+  name: "app",
   components: {
-    TodosInput,
-    // TodosList,
-    // TodosActions,
+    "todos-input": TodosInput,
+    "todos-list": TodosList,
   },
   data() {
     return {
@@ -22,11 +23,6 @@ export default {
       ],
     };
   },
-  // props: {
-  //   title: {
-  //     type: String,
-  //   },
-  // },
   methods: {
     createTodoHandler(todoTitle) {
       if (todoTitle) {
@@ -36,6 +32,9 @@ export default {
           isCompleted: false,
         });
       }
+    },
+    deleteTodoHandler(todo) {
+      this.todos.splice(this.todos.indexOf(todo), 1);
     },
   },
 };
