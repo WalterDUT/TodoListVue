@@ -1,48 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" width="25%" />
-    <HelloWorld msg="Hello Vue in CodeSandbox!" />
-  </div>
+  <todos-input :title="title" @createTodo="createTodoHandler" />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
+import TodosInput from "./components/TodosInput";
+import TodosList from "./components/TodosList";
+import TodosActions from "./components/TodosActions";
 export default {
-  name: "App",
+  name: "",
   components: {
-    HelloWorld,
+    TodosInput,
+    // TodosList,
+    // TodosActions,
   },
-  el: "#signup-form",
-  data: function () {
+  data() {
     return {
-      isVisible: false,
-      email: "",
+      title: "my todos",
+      todos: [
+        { id: 1, title: "Taste JavaScript", isCompleted: true },
+        { id: 2, title: "Buy a unicorn", isCompleted: false },
+      ],
     };
   },
+  // props: {
+  //   title: {
+  //     type: String,
+  //   },
+  // },
   methods: {
-    submit: function () {
-      fetch("https://httpbin.org/post", {
-        method: "POST",
-        body: { email: this.email },
-      })
-        .then((resp) => {
-          this.isVisible = true;
-          this.email = "";
-        })
-        .catch((err) => console.err("error:", err));
+    createTodoHandler(todoTitle) {
+      if (todoTitle) {
+        this.todos.push({
+          id: this.todos.length + 1,
+          title: todoTitle,
+          isCompleted: false,
+        });
+      }
     },
   },
 };
-</script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+</script>  
